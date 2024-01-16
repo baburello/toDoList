@@ -57,7 +57,7 @@ function showTodos() {
     const todos = JSON.parse(localStorage.getItem("list"));
     listGroupTodo.innerHTML = "";
     todos.forEach((item, i) => {
-        listGroupTodo.innerHTML += `<li class="list-group-item d-flex justify-content-between">
+        listGroupTodo.innerHTML += `<li ondblclick="setCompleted(${i})" class="list-group-item d-flex justify-content-between ${item.completed == true ? 'completed' : ''}">
         ${item.text}
         <div class="todo-icons">
             <span class="opacity-50 me-2">${item.time}</span>
@@ -113,6 +113,21 @@ function deleteTodo(id) {
         return i !== id
     })
     todos = deletedTodos
+    setTodos()
+    showTodos()
+}
+
+//setCompleted
+function setCompleted(id) {
+    const completeTodos = todos.map((item, i) => {
+        if (id == i) {
+            return {...item, completed: item.completed == true ? false : true}
+        } else {
+            return{...item}
+        }
+    })
+
+    todos = completeTodos
     setTodos()
     showTodos()
 }
