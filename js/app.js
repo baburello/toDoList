@@ -56,7 +56,7 @@ setInterval(getTime, 1000)
 function showTodos() {
     const todos = JSON.parse(localStorage.getItem("list"));
     listGroupTodo.innerHTML = "";
-    todos.forEach((item, index) => {
+    todos.forEach((item, i) => {
         listGroupTodo.innerHTML += `<li class="list-group-item d-flex justify-content-between">
         ${item.text}
         <div class="todo-icons">
@@ -67,7 +67,7 @@ function showTodos() {
                 width="25"
                 height="25"
             />
-            <img
+            <img onclick=(deleteTodo(${i}))
                 src="./img/delete.svg"
                 alt="delete icon"
                 width="25"
@@ -105,3 +105,14 @@ formCreate.addEventListener("submit", (e) => {
         showMessage("message-create", "Please, enter some todo...");
     }
 });
+
+//delete todo
+
+function deleteTodo(id) {
+    const deletedTodos = todos.filter((item, i)=>{
+        return i !== id
+    })
+    todos = deletedTodos
+    setTodos()
+    showTodos()
+}
