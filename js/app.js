@@ -181,6 +181,15 @@ function editTodo(id) {
     editItemId = id;
 }
 
+overlay.addEventListener('click', close)
+closeEl.addEventListener('click', close)
+
+document.addEventListener('keydown', (e) => {
+    if (e.which == 27) {
+        close()
+    }
+})
+
 function open() {
     modal.classList.remove("hidden");
     overlay.classList.remove("hidden");
